@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>API Websockets</title>
+    <link rel="stylesheet" type="text/css" href="estilos.css">
+    <script type="text/javascript" src="scriptEmpresa.js"></script>
+
+</head>
+
+<body>
+    <h1>API Websockets</h1>
+    <div id="producto">
+        <h2>Nueva empresa</h2>
+
+        <label>RUC:</label>
+        <input type="text" id="ruc" value="" />
+        <label>Nombre:</label>
+        <input type="text" id="nombre" value="" />
+        <label>Domicilio:</label>
+        <input type="text" id="domicilio" value="" />
+        <label>Telefono:</label>
+        <input type="text" id="telefono" value="" />
+        <button onclick="guardar_empresa()">Guardar</button>
+        <button onclick="cancelar_empresa()">Cancelar</button>
+        <button style="background-color: grey;" onclick="window.location.href = 'index.html';">Regresar</button>
+    </div>
+</body>
+
+</html>
