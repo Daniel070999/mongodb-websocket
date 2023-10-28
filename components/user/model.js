@@ -8,10 +8,12 @@ const req_string = {
 };
 
 const user_schema = new Schema({
-    user: req_string,
-    email: req_string,
+    usuario: req_string,
     password: req_string,
-    roles: [
+    nombre: req_string,
+    apellido: req_string,
+    correo: req_string,
+    rol: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'roles' 

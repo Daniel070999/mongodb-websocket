@@ -32,7 +32,6 @@ function guardar() {
         domicilio: domicilio_,
         telefono: telefono_
     };
-    console.log(data);
     return new Promise((resolve, reject) => {
         const request_options = {
             method: 'POST',
@@ -79,27 +78,62 @@ function cargarEmpresas() {
             .catch(error => reject(`[error]: ${error}`));
     });
 }
+function verifyToken() {
+    return new Promise((resolve, reject) => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('No has iniciado sesión');
+            window.location.href = 'index.html';
+            reject('No se encontró un token de autenticación');
+        }
+        const headers = {
+            'Authorization': token
+        };
+
+        resolve({ headers });
+    });
+}
 
 document.addEventListener('DOMContentLoaded', function () {
-    cargarEmpresas()
-        .then((empresas) => {
-            const empresaSelect = document.getElementById('empresaSelect');
 
-            empresas.body.forEach(empresa => {
-                const option = document.createElement('option');
-                option.value = empresa._id;
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.name = 'selectedEmpresas'; // Asigna un nombre para agrupar los checkboxes
-                checkbox.value = empresa._id; // Valor asociado al checkbox
-                option.appendChild(checkbox); // Agrega el checkbox a la opción
-                option.textContent = empresa.nombre;
-                empresaSelect.appendChild(option);
-            });
+    verifyToken()
+        .then(({ headers }) => {
+            return fetch('/representantelegal', { headers });
         })
-        .catch((error) => {
-            console.error('Error al cargar las empresas:', error);
+        .then(response => {
+            if (response.status === 401) {
+                alert('Acceso no autorizado, necesita permisos de Administrador');
+                window.location.href = 'index.html';
+                throw new Error('Acceso no autorizado, necesita permisos de Administrador');
+            }
+            return response.json();
+        })
+        .then(data => {
+            cargarEmpresas()
+                .then((empresas) => {
+                    const empresaSelect = document.getElementById('empresaSelect');
+                    empresas.body.forEach(empresa => {
+                        const option = document.createElement('option');
+                        option.value = empresa._id;
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.name = 'selectedEmpresas'; // Asigna un nombre para agrupar los checkboxes
+                        checkbox.value = empresa._id; // Valor asociado al checkbox
+                        option.appendChild(checkbox); // Agrega el checkbox a la opción
+                        option.textContent = empresa.nombre;
+                        empresaSelect.appendChild(option);
+                    });
+                    console.log('Empresas cargadas');
+                })
+                .catch((error) => {
+                    console.error('Error al cargar las empresas:', error);
+                });
+        })
+        .catch(error => {
+            console.error(`Error en la solicitud: ${error}`);
         });
+
+
 });
 
 

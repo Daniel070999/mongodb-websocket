@@ -9,11 +9,8 @@ function get_representantelegal(filtrorepresentantelegal) {
         model.find(filtro)
             .populate('empresa')
             .then(data => {
-                console.log(data);
-
                 lista = []
                 for (elemento of data) {
-                    console.log(elemento);
                     lista.push({ id: elemento._id, representantelegal: elemento.nombre, empresa: elemento.empresa[0].nombre })
                 }
                 resolve(lista)

@@ -1,13 +1,11 @@
 const express = require('express')
 const body_parser = require('body-parser')
 const socket = require('./socketIO')
-//const init = require('./components/rol/initial') /* Se vuelve a comentar para evitar problemas de volver a registrar en mongoDB*/
+const init = require('./components/rol/initial') /* Crea los roles en mongoDB*/
 
 const routes = require('./network/routes')
 const db = require('./db')
 
-//inicializa los roles
-// init; /* Se vuelve a comentar para evitar problemas de volver a registrar en mongoDB*/
 
 let app = express()
 const server = require('http').Server(app)
