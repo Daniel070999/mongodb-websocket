@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>API Websockets</title>
+    <link rel="stylesheet" type="text/css" href="estilos.css">
+    <script type="text/javascript" src="scriptUser.js"></script>
+
+</head>
+
+<body>
+    <h1>Nuevo Usuario</h1>
+    <div id="producto">
+        <h2>Nuevo usuario</h2>
+
+        <label>User:</label>
+        <input type="text" id="user" value="" />
+        <label>Email:</label>
+        <input type="text" id="email" value="" />
+        <label>Password:</label>
+        <input type="text" id="password" value="" />
+        <label>Rol:</label>
+        <input type="text" id="roles" value="" />
+        <button onclick="guardar_user()">Guardar</button>
+        <button onclick="cancelar_user()">Cancelar</button>
+        <button style="background-color: grey;" onclick="window.location.href = 'index.html';">Regresar</button>
+    </div>
+</body>
+
+</html>
