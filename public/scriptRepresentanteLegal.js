@@ -11,7 +11,7 @@ socket.on('notificacion', (message) => {
 
 function guardar() {
     let empresaSelect = document.getElementById('empresaSelect');
-    let selectedOptions = [...empresaSelect.selectedOptions]; // Obtener opciones seleccionadas
+    let selectedOptions = [...empresaSelect.selectedOptions];
 
     let empresaId = selectedOptions.map(option => option.value);
     let ruc_ = document.getElementById('ruc').value;
@@ -33,10 +33,12 @@ function guardar() {
         telefono: telefono_
     };
     return new Promise((resolve, reject) => {
+        const token = localStorage.getItem('token');
         const request_options = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': token
             },
             body: JSON.stringify(data)
         };

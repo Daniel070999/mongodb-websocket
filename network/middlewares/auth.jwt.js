@@ -1,5 +1,3 @@
-// middleware.js
-
 const jwt = require('jsonwebtoken');
 const Rol = require('../../components/rol/model');
 
